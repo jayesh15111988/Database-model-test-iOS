@@ -1,0 +1,37 @@
+//
+//  JKDatabaseModelTest-Prefix.pch
+//  JKDatabaseModelTest
+//
+//  Created by Jayesh Kawli Backup on 1/31/15.
+//  Copyright (c) 2015 Jayesh Kawli Backup. All rights reserved.
+//
+
+#ifndef JKDatabaseModelTest_JKDatabaseModelTest_Prefix_pch
+#define JKDatabaseModelTest_JKDatabaseModelTest_Prefix_pch
+
+#import <Realm/Realm.h>
+#import <MagicalRecord/MagicalRecord.h>
+#import <MagicalRecord/MagicalRecord+Setup.h>
+#import <NSManagedObject+MagicalRecord.h>
+#import <NSManagedObjectContext+MagicalSaves.h>
+#import <NSManagedObject+MagicalFinders.h>
+#import <NSManagedObjectContext+MagicalRecord.h>
+#import <AFNetworking-RACExtensions/AFHTTPRequestOperationManager+RACSupport.h>
+
+
+#define BASE_URL @"https://api.flightstats.com/"
+#define API_EXTENSION @"flex/"
+#define APP_ID @"9738bcd8"
+#define APP_KEY @"6c713890a9bf2822f783ab8870332617"
+
+// Include any system framework and library headers here that should be included in all compilation units.
+// You will also need to set the Prefix Header build setting of one or more of your targets to reference this file.
+
+#endif
+
+// Logging macros
+#ifdef DEBUG
+#define DLog(xx, ...) NSLog (@"%s(%d): " xx, ((strrchr (__FILE__, '/') ?: __FILE__ - 1) + 1), __LINE__, ##__VA_ARGS__)
+#else
+#define DLog(xx, ...) ((void)0)
+#endif

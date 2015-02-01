@@ -1,0 +1,5 @@
+platform :ios, '6.0'
+pod 'Realm'
+pod 'MagicalRecord'
+pod 'PonyDebugger', '~> 0.4.0'
+pod 'AFNetworking-RACExtensions', :git => 'https://github.com/knshiro/AFNetworking-RACExtensions.git'
