@@ -16,6 +16,5 @@
 @property NSString* icao;
 @property NSString* fs;
 
-+ (NSDictionary *)defaultPropertyValues;
 @end
 

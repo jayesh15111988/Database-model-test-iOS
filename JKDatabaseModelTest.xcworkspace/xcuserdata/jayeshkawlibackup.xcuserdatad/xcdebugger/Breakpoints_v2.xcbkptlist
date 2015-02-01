@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JKDatabaseModelTest/ViewController.m"
-            timestampString = "444442950.049153"
+            timestampString = "444447487.963426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "30"
-            endingLineNumber = "30"
+            startingLineNumber = "51"
+            endingLineNumber = "51"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>
@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JKDatabaseModelTest/ViewController.m"
-            timestampString = "444443346.952286"
+            timestampString = "444447487.963426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "139"
-            endingLineNumber = "139"
+            startingLineNumber = "240"
+            endingLineNumber = "240"
             landmarkName = "-storeDataInRealmWithDictionary:"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JKDatabaseModelTest/ViewController.m"
-            timestampString = "444443346.952286"
+            timestampString = "444447487.963426"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "155"
-            endingLineNumber = "155"
+            startingLineNumber = "256"
+            endingLineNumber = "256"
             landmarkName = "-storeDataInCoreDataWithDictionary:"
             landmarkType = "5">
          </BreakpointContent>

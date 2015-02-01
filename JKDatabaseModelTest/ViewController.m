@@ -9,11 +9,29 @@
 #import "ViewController.h"
 #import "AirlineRL.h"
 #import "Airlines.h"
+#import "ApplicationDetailsTableViewCell.h"
+#import "ReleasedApp.h"
+#import "Developer.h"
 
 #define RECORDS_INCREMENT_PARAMETER 10
 
 @interface ViewController ()
 @property (nonatomic, strong) AFHTTPRequestOperationManager* manager;
+@property (nonatomic, strong) RLMResults* developersCollection;
+
+@property (weak, nonatomic) IBOutlet UITableView *tableView;
+
+@property (strong, nonatomic) IBOutlet UIView *footerForTableView;
+@property (weak, nonatomic) IBOutlet UITextField *name;
+@property (weak, nonatomic) IBOutlet UITextField *platform;
+@property (weak, nonatomic) IBOutlet UITextField *experience;
+@property (weak, nonatomic) IBOutlet UITextField *extraInfo;
+@property (weak, nonatomic) IBOutlet UIButton *switchInputModeButton;
+@property (weak, nonatomic) IBOutlet UIButton *addObjectButton;
+
+@property (assign, nonatomic) BOOL isAddingApp;
+
+@property (weak, nonatomic) IBOutlet UIView *addDeveloperView;
 
 @end
 
@@ -21,6 +39,9 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self setupSignals];
+    self.tableView.tableFooterView = self.footerForTableView;
+    
     self.manager = [[AFHTTPRequestOperationManager alloc]
                initWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BASE_URL, API_EXTENSION]]];
     self.manager.requestSerializer = [AFJSONRequestSerializer serializer];
@@ -29,6 +50,88 @@
     if([[AirlineRL allObjects] count] == 0) {
         [self fetchAndStoreDataInDatabase];
     }
+    else {
+        [self loadAppsCollectionTable];
+    }
+    
+    self.isAddingApp = YES;
+    [self updateInputInfoViewWithAddingAppFlag];
+}
+
+-(void)updateInputInfoViewWithAddingAppFlag {
+    [self.addObjectButton setTitle:self.isAddingApp ? @"Add App" : @"Add Developer" forState:UIControlStateNormal];
+    
+    if(self.isAddingApp) {
+        self.platform.placeholder = @"App Name";
+        self.experience.placeholder = @"Platform";
+        self.extraInfo.placeholder = @"Cost";
+        [self.addObjectButton setTitle:@"Add App" forState:UIControlStateNormal];
+    }
+    else {
+        [self.addObjectButton setTitle: @"Add Developer" forState:UIControlStateNormal];
+        self.platform.placeholder = @"Platform";
+        self.experience.placeholder = @"Experience";
+        self.extraInfo.placeholder = @"State";
+    }
+}
+
+
+-(void)setupSignals {
+    
+    self.switchInputModeButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^(id _) {
+        self.isAddingApp = !self.isAddingApp;
+        [self updateInputInfoViewWithAddingAppFlag];
+        return [RACSignal empty];
+    }];
+    
+    
+    RACSignal *validNameSignal =
+    [self.name.rac_textSignal
+     map:^id(NSString *text) {
+         return @(text.length > 2);
+     }];
+    
+    RACSignal *validPlatformSignal =
+    [self.platform.rac_textSignal
+     map:^id(NSString *text) {
+         return @(text.length > 2);
+     }];
+    
+    RACSignal *validThirdFieldSignal =
+    [self.experience.rac_textSignal
+     map:^id(NSString *text) {
+         return @(text.length > 2);
+     }];
+    
+    RACSignal *validFourthFieldSignal =
+    [self.extraInfo.rac_textSignal
+     map:^id(NSString *text) {
+         return @(text.length > 0);
+     }];
+    
+    RACSignal *addObjectActiveSignal =
+    [RACSignal combineLatest:@[validNameSignal, validPlatformSignal, validThirdFieldSignal, validFourthFieldSignal]
+                      reduce:^id(NSNumber *name, NSNumber *platform, NSNumber* thirdField, NSNumber* fourthField) {
+                          return @([name boolValue] && [platform boolValue] && [thirdField boolValue] && [fourthField boolValue]);
+                      }];
+    
+    [addObjectActiveSignal subscribeNext:^(NSNumber *addObjectActive) {
+        self.addObjectButton.enabled = [addObjectActive boolValue];
+        self.addObjectButton.alpha = [addObjectActive boolValue] ? 1 : 0.3;
+    }];
+    
+    
+    self.addObjectButton.rac_command = [[RACCommand alloc] initWithSignalBlock:^(id _) {
+        DLog(@"Add Object Button Pressed");
+        if(self.isAddingApp) {
+            //Add App object
+        }
+        else {
+            //Add Developer object
+        }
+        return [RACSignal empty];
+    }];
+    
 }
 
 -(void)beginTestingOperation {
@@ -106,6 +209,7 @@
         [self storeDataInRealmWithDictionary:response[@"airlines"]];
         DLog(@"Time to store data by Realm data model %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart],(long)[response[@"airlines"] count] * RECORDS_INCREMENT_PARAMETER);
         [self beginTestingOperation];
+        [self loadAppsCollectionTable];
     }
                                                                                                                     error:^(NSError *error) {
                                                                                                                         AFHTTPRequestOperation *operation = [error.userInfo objectForKey:@"AFHTTPRequestOperation"];
@@ -115,6 +219,13 @@
                                                                                                                                              DLog(@"Network Operation Completed");
                                                                                                                                          }];
 
+}
+
+-(void)loadAppsCollectionTable {
+    
+    self.developersCollection = [Developer allObjects];
+    [self.tableView reloadData];
+    
 }
 
 
@@ -155,5 +266,33 @@
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
 
+#pragma tableView datasource and delegate methods
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+    Developer* developerForCurrentSection = self.developersCollection[section];
+    return [developerForCurrentSection.releasedAppsCollection count];
+}
+
+- (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
+    return [self.developersCollection count];
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
+    return 100;
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
+    
+    ApplicationDetailsTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"appdetailcell" forIndexPath:indexPath];
+    Developer* currentDeveloper = self.developersCollection[indexPath.section];
+    ReleasedApp* currentApp = currentDeveloper.releasedAppsCollection[indexPath.row];
+    cell.appName.text = currentApp.appName;
+    cell.platform.text = currentApp.platform;
+    cell.cost.text = currentApp.cost;
+    return cell;
+}
+
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+}
 
 @end

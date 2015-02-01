@@ -17,6 +17,9 @@
 		388249611A7D7DEC00D39B46 /* JKDatabaseModelTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 388249601A7D7DEC00D39B46 /* JKDatabaseModelTestTests.m */; };
 		38BCDB661A7D916200D90A58 /* Airlines.m in Sources */ = {isa = PBXBuildFile; fileRef = 38BCDB651A7D916200D90A58 /* Airlines.m */; };
 		38BCDB6C1A7D962600D90A58 /* AirlineRL.m in Sources */ = {isa = PBXBuildFile; fileRef = 38BCDB6B1A7D962600D90A58 /* AirlineRL.m */; };
+		38BCDB6F1A7DAC5D00D90A58 /* Developer.m in Sources */ = {isa = PBXBuildFile; fileRef = 38BCDB6E1A7DAC5D00D90A58 /* Developer.m */; };
+		38BCDB721A7DAC8300D90A58 /* ReleasedApp.m in Sources */ = {isa = PBXBuildFile; fileRef = 38BCDB711A7DAC8300D90A58 /* ReleasedApp.m */; };
+		38BCDB761A7DB32400D90A58 /* ApplicationDetailsTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 38BCDB751A7DB32400D90A58 /* ApplicationDetailsTableViewCell.m */; };
 		4F8828656092460CD56B29FF /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 7F6DC8325F14C5C9C6482CE7 /* libPods.a */; };
 /* End PBXBuildFile section */
 
@@ -51,6 +54,12 @@
 		38BCDB651A7D916200D90A58 /* Airlines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Airlines.m; sourceTree = "<group>"; };
 		38BCDB6A1A7D962600D90A58 /* AirlineRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirlineRL.h; sourceTree = "<group>"; };
 		38BCDB6B1A7D962600D90A58 /* AirlineRL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirlineRL.m; sourceTree = "<group>"; };
+		38BCDB6D1A7DAC5D00D90A58 /* Developer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Developer.h; sourceTree = "<group>"; };
+		38BCDB6E1A7DAC5D00D90A58 /* Developer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Developer.m; sourceTree = "<group>"; };
+		38BCDB701A7DAC8300D90A58 /* ReleasedApp.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReleasedApp.h; sourceTree = "<group>"; };
+		38BCDB711A7DAC8300D90A58 /* ReleasedApp.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReleasedApp.m; sourceTree = "<group>"; };
+		38BCDB741A7DB32400D90A58 /* ApplicationDetailsTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ApplicationDetailsTableViewCell.h; sourceTree = "<group>"; };
+		38BCDB751A7DB32400D90A58 /* ApplicationDetailsTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ApplicationDetailsTableViewCell.m; sourceTree = "<group>"; };
 		393B964A1D33CFC78BA113D6 /* Pods.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.debug.xcconfig; path = "Pods/Target Support Files/Pods/Pods.debug.xcconfig"; sourceTree = "<group>"; };
 		7B090B5961071425048AA5FD /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		7F6DC8325F14C5C9C6482CE7 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -98,6 +107,7 @@
 		388249401A7D7DEC00D39B46 /* JKDatabaseModelTest */ = {
 			isa = PBXGroup;
 			children = (
+				38BCDB731A7DB2D600D90A58 /* Custom Cell */,
 				3882496F1A7D848000D39B46 /* Database Models */,
 				3882496A1A7D7FBA00D39B46 /* Constant */,
 				388249451A7D7DEC00D39B46 /* AppDelegate.h */,
@@ -159,6 +169,10 @@
 		388249701A7D848C00D39B46 /* Realm Models */ = {
 			isa = PBXGroup;
 			children = (
+				38BCDB6D1A7DAC5D00D90A58 /* Developer.h */,
+				38BCDB6E1A7DAC5D00D90A58 /* Developer.m */,
+				38BCDB701A7DAC8300D90A58 /* ReleasedApp.h */,
+				38BCDB711A7DAC8300D90A58 /* ReleasedApp.m */,
 				38BCDB6A1A7D962600D90A58 /* AirlineRL.h */,
 				38BCDB6B1A7D962600D90A58 /* AirlineRL.m */,
 			);
@@ -172,6 +186,15 @@
 				38BCDB651A7D916200D90A58 /* Airlines.m */,
 			);
 			name = "Core Data Models";
+			sourceTree = "<group>";
+		};
+		38BCDB731A7DB2D600D90A58 /* Custom Cell */ = {
+			isa = PBXGroup;
+			children = (
+				38BCDB741A7DB32400D90A58 /* ApplicationDetailsTableViewCell.h */,
+				38BCDB751A7DB32400D90A58 /* ApplicationDetailsTableViewCell.m */,
+			);
+			name = "Custom Cell";
 			sourceTree = "<group>";
 		};
 		553E6AA21955367EAB07DCDD /* Pods */ = {
@@ -330,7 +353,10 @@
 				388249471A7D7DEC00D39B46 /* AppDelegate.m in Sources */,
 				38BCDB661A7D916200D90A58 /* Airlines.m in Sources */,
 				3882494A1A7D7DEC00D39B46 /* JKDatabaseModelTest.xcdatamodeld in Sources */,
+				38BCDB6F1A7DAC5D00D90A58 /* Developer.m in Sources */,
+				38BCDB761A7DB32400D90A58 /* ApplicationDetailsTableViewCell.m in Sources */,
 				3882494D1A7D7DEC00D39B46 /* ViewController.m in Sources */,
+				38BCDB721A7DAC8300D90A58 /* ReleasedApp.m in Sources */,
 				388249441A7D7DEC00D39B46 /* main.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
