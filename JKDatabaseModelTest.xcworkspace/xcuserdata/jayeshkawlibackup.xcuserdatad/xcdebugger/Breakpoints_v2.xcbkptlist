@@ -10,11 +10,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JKDatabaseModelTest/ViewController.m"
-            timestampString = "444451559.117682"
+            timestampString = "444453763.006732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "159"
-            endingLineNumber = "159"
+            startingLineNumber = "161"
+            endingLineNumber = "161"
             landmarkName = "-addApplicaiton"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,11 +42,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JKDatabaseModelTest/ViewController.m"
-            timestampString = "444451385.375552"
+            timestampString = "444453763.006732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "263"
-            endingLineNumber = "263"
+            startingLineNumber = "268"
+            endingLineNumber = "268"
             landmarkName = "-fetchAndStoreDataInDatabase"
             landmarkType = "5">
          </BreakpointContent>
@@ -58,11 +58,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JKDatabaseModelTest/ViewController.m"
-            timestampString = "444451385.375552"
+            timestampString = "444453763.006732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "267"
-            endingLineNumber = "267"
+            startingLineNumber = "273"
+            endingLineNumber = "273"
             landmarkName = "-fetchAndStoreDataInDatabase"
             landmarkType = "5">
          </BreakpointContent>
@@ -74,13 +74,13 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JKDatabaseModelTest/ViewController.m"
-            timestampString = "444451559.117682"
+            timestampString = "444453763.006732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "283"
-            endingLineNumber = "283"
-            landmarkName = "-loadAppsCollectionTable"
-            landmarkType = "5">
+            startingLineNumber = "289"
+            endingLineNumber = "289"
+            landmarkName = "@implementation ViewController"
+            landmarkType = "3">
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
@@ -90,11 +90,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JKDatabaseModelTest/ViewController.m"
-            timestampString = "444451455.844856"
+            timestampString = "444453763.006732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "255"
-            endingLineNumber = "255"
+            startingLineNumber = "258"
+            endingLineNumber = "258"
             landmarkName = "-fetchAndStoreDataInDatabase"
             landmarkType = "5">
          </BreakpointContent>
@@ -106,11 +106,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JKDatabaseModelTest/ViewController.m"
-            timestampString = "444451559.117682"
+            timestampString = "444453763.006732"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "53"
-            endingLineNumber = "53"
+            startingLineNumber = "55"
+            endingLineNumber = "55"
             landmarkName = "-viewDidLoad"
             landmarkType = "5">
          </BreakpointContent>

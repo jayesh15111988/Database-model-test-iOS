@@ -41,7 +41,8 @@
     [super viewDidLoad];
     [self setupSignals];
     self.tableView.tableFooterView = self.footerForTableView;
-    
+    [self addBorderToView:self.tableView];
+    [self addBorderToView:self.addDeveloperView];
     
     self.manager = [[AFHTTPRequestOperationManager alloc]
                initWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BASE_URL, API_EXTENSION]]];
@@ -360,24 +361,32 @@
 - (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
     Developer* currentDeveloper = self.developersCollection[section];
     
+    UIFont* defaultFontForLabel = [UIFont systemFontOfSize:12];
+    
     UIView* customHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
-    [customHeaderView setBackgroundColor:[UIColor whiteColor]];
+    [customHeaderView setBackgroundColor:[UIColor greenColor]];
     
     UILabel* developerNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 130, 20)];
     developerNameLabel.textAlignment = NSTextAlignmentCenter;
     developerNameLabel.text = [NSString stringWithFormat:@"Name : %@",currentDeveloper.name];
+    developerNameLabel.font = defaultFontForLabel;
     
     UILabel* stateNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(160, 20, 130, 20)];
     stateNameLabel.textAlignment = NSTextAlignmentCenter;
     stateNameLabel.text = [NSString stringWithFormat:@"State : %@", currentDeveloper.state];
+    stateNameLabel.font = defaultFontForLabel;
     
     [customHeaderView addSubview:developerNameLabel];
     [customHeaderView addSubview:stateNameLabel];
     
-    customHeaderView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    customHeaderView.layer.borderWidth = 1.0f;
+    [self addBorderToView:customHeaderView];
     
     return customHeaderView;
+}
+
+-(void)addBorderToView:(UIView*)inputView {
+    inputView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    inputView.layer.borderWidth = 1.0f;
 }
 
 
