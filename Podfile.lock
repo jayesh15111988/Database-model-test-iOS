@@ -39,12 +39,14 @@ PODS:
     - Realm/Headers (= 0.90.4)
   - Realm/Headers (0.90.4)
   - SocketRocket (0.2.0)
+  - TPKeyboardAvoiding (1.2.4)
 
 DEPENDENCIES:
   - AFNetworking-RACExtensions (from `https://github.com/knshiro/AFNetworking-RACExtensions.git`)
   - MagicalRecord
   - PonyDebugger (~> 0.4.0)
   - Realm
+  - TPKeyboardAvoiding (~> 1.2.3)
 
 EXTERNAL SOURCES:
   AFNetworking-RACExtensions:
@@ -63,5 +65,6 @@ SPEC CHECKSUMS:
   ReactiveCocoa: 31119068e3dde866bd257cf74e1f06b4023bf387
   Realm: 43ec5595f51849fabccd2213cfad90bc4ff9a3c0
   SocketRocket: 6c9cfd1592bea82262b4283dcda3a7de166af3b6
+  TPKeyboardAvoiding: 925e1e1912597d1a4956697eec3bd9656552153c
 
 COCOAPODS: 0.35.0

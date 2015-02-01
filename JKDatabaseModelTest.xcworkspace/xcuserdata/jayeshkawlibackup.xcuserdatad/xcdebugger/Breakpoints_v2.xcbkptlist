@@ -26,11 +26,11 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JKDatabaseModelTest/ViewController.m"
-            timestampString = "444447487.963426"
+            timestampString = "444449403.690698"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "240"
-            endingLineNumber = "240"
+            startingLineNumber = "284"
+            endingLineNumber = "284"
             landmarkName = "-storeDataInRealmWithDictionary:"
             landmarkType = "5">
          </BreakpointContent>
@@ -42,12 +42,28 @@
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "JKDatabaseModelTest/ViewController.m"
-            timestampString = "444447487.963426"
+            timestampString = "444449403.690698"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "256"
-            endingLineNumber = "256"
+            startingLineNumber = "300"
+            endingLineNumber = "300"
             landmarkName = "-storeDataInCoreDataWithDictionary:"
+            landmarkType = "5">
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "JKDatabaseModelTest/ViewController.m"
+            timestampString = "444449652.722858"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "156"
+            endingLineNumber = "156"
+            landmarkName = "-addApplicaiton"
             landmarkType = "5">
          </BreakpointContent>
       </BreakpointProxy>

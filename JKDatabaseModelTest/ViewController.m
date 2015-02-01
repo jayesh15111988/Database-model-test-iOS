@@ -106,7 +106,7 @@
     RACSignal *validFourthFieldSignal =
     [self.extraInfo.rac_textSignal
      map:^id(NSString *text) {
-         return @(text.length > 0);
+         return @(text.length > 2);
      }];
     
     RACSignal *addObjectActiveSignal =
@@ -116,7 +116,7 @@
                       }];
     
     [addObjectActiveSignal subscribeNext:^(NSNumber *addObjectActive) {
-        self.addObjectButton.enabled = [addObjectActive boolValue];
+        self.addObjectButton.userInteractionEnabled = [addObjectActive boolValue];
         self.addObjectButton.alpha = [addObjectActive boolValue] ? 1 : 0.3;
     }];
     
@@ -125,13 +125,57 @@
         DLog(@"Add Object Button Pressed");
         if(self.isAddingApp) {
             //Add App object
+            [self addApplicaiton];
         }
         else {
             //Add Developer object
+            [self addDeveloper];
         }
+        [self loadAppsCollectionTable];
         return [RACSignal empty];
     }];
     
+}
+
+-(void)addDeveloper {
+    
+    RLMRealm* defaultRealm = [RLMRealm defaultRealm];
+    [defaultRealm beginWriteTransaction];
+    Developer* developerObject = [[Developer alloc] init];
+    developerObject.name = self.name.text;
+    developerObject.platform = self.platform.text;
+    developerObject.state = self.extraInfo.text;
+    developerObject.experience = self.experience.text;
+    [defaultRealm addObject:developerObject];
+    [defaultRealm commitWriteTransaction];
+}
+
+-(void)addApplicaiton {
+    
+    RLMResults* developerWithCurrentName = [Developer objectsWhere:@"name = %@",self.name.text];
+    if([developerWithCurrentName count] > 0) {
+        
+        RLMRealm* defaultRelam = [RLMRealm defaultRealm];
+        
+        Developer* developerWithGivenName = [developerWithCurrentName firstObject];
+        
+        [defaultRelam beginWriteTransaction];
+        ReleasedApp* newAppToAdd = [[ReleasedApp alloc] init];
+        newAppToAdd.appName = self.name.text;
+        newAppToAdd.cost = self.extraInfo.text;
+        newAppToAdd.platform = self.platform.text;
+        [developerWithGivenName.releasedAppsCollection addObject:newAppToAdd];
+        [defaultRelam commitWriteTransaction];
+    }
+    else {
+        [self showMessageWithBody:@"No developer with such name exists in database"];
+    }
+}
+
+-(void)showMessageWithBody:(NSString*)messageBody {
+    UIAlertView *alertView = [[UIAlertView alloc] initWithTitle:@"Realm Demo"
+                                                        message:messageBody delegate:nil cancelButtonTitle:@"Okay" otherButtonTitles:nil, nil];
+    [alertView show];
 }
 
 -(void)beginTestingOperation {
@@ -176,7 +220,8 @@
         }
     }
     
-    DLog(@"Execution time to update Core data is %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], (long)[matchingAirlineObjects count]);
+    //Following commented block is used to delete all objects from database. Commenting for now
+  /*  DLog(@"Execution time to update Core data is %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], (long)[matchingAirlineObjects count]);
     methodStart = [NSDate date];
     
     [defaultRealm beginWriteTransaction];
@@ -190,6 +235,7 @@
     
     DLog(@"**Execution time to delete all records from Core data model is %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], (long)[allObjectsFromCoreData count]);
     methodStart = [NSDate date];
+    */
     
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
@@ -222,10 +268,8 @@
 }
 
 -(void)loadAppsCollectionTable {
-    
     self.developersCollection = [Developer allObjects];
     [self.tableView reloadData];
-    
 }
 
 
@@ -285,14 +329,42 @@
     ApplicationDetailsTableViewCell* cell = [tableView dequeueReusableCellWithIdentifier:@"appdetailcell" forIndexPath:indexPath];
     Developer* currentDeveloper = self.developersCollection[indexPath.section];
     ReleasedApp* currentApp = currentDeveloper.releasedAppsCollection[indexPath.row];
-    cell.appName.text = currentApp.appName;
-    cell.platform.text = currentApp.platform;
-    cell.cost.text = currentApp.cost;
+    cell.appName.text = [NSString stringWithFormat:@"App : %@",currentApp.appName];
+    cell.platform.text = [NSString stringWithFormat:@"Platform : %@",currentApp.platform];
+    cell.cost.text = [NSString stringWithFormat:@"Cost : %@",currentApp.cost];
     return cell;
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
 }
+
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section {
+    return 50;
+}
+
+- (UIView *)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section {
+    Developer* currentDeveloper = self.developersCollection[section];
+    
+    UIView* customHeaderView = [[UIView alloc] initWithFrame:CGRectMake(0, 0, 320, 50)];
+    [customHeaderView setBackgroundColor:[UIColor whiteColor]];
+    
+    UILabel* developerNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(10, 20, 130, 20)];
+    developerNameLabel.textAlignment = NSTextAlignmentCenter;
+    developerNameLabel.text = [NSString stringWithFormat:@"Name : %@",currentDeveloper.name];
+    
+    UILabel* stateNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(160, 20, 130, 20)];
+    stateNameLabel.textAlignment = NSTextAlignmentCenter;
+    stateNameLabel.text = [NSString stringWithFormat:@"State : %@", currentDeveloper.state];
+    
+    [customHeaderView addSubview:developerNameLabel];
+    [customHeaderView addSubview:stateNameLabel];
+    
+    customHeaderView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    customHeaderView.layer.borderWidth = 1.0f;
+    
+    return customHeaderView;
+}
+
 
 @end
