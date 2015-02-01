@@ -118,6 +118,18 @@
                                 <rect key="frame" x="150" y="20" width="37" height="37"/>
                                 <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                             </activityIndicatorView>
+                            <view hidden="YES" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="8EL-8k-v5A">
+                                <rect key="frame" x="0.0" y="20" width="320" height="250"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="No Developer profiles found on the phone" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hpi-Yn-Oy8">
+                                        <rect key="frame" x="30" y="40" width="260" height="150"/>
+                                        <fontDescription key="fontDescription" name="HelveticaNeue-Light" family="Helvetica Neue" pointSize="17"/>
+                                        <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.84430793150000005" green="1" blue="0.9261234974" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
@@ -149,6 +161,7 @@
                         <outlet property="extraInfo" destination="lC2-hw-rqE" id="SFw-Y3-GR6"/>
                         <outlet property="footerForTableView" destination="kJO-NH-EQh" id="guG-Dz-zt8"/>
                         <outlet property="name" destination="2y6-Zy-Uwv" id="Ul0-pz-QHn"/>
+                        <outlet property="noResultView" destination="8EL-8k-v5A" id="yaJ-bn-Dj8"/>
                         <outlet property="platform" destination="rah-sn-tZ6" id="1ZT-8j-hlm"/>
                         <outlet property="switchInputModeButton" destination="1kz-35-jin" id="8D2-Fd-KcD"/>
                         <outlet property="tableView" destination="gYR-1R-jdU" id="aN7-pl-vuX"/>

@@ -23,6 +23,21 @@ PODS:
   - AFNetworking/UIKit (2.5.0):
     - AFNetworking/NSURLConnection
     - AFNetworking/NSURLSession
+  - BlocksKit (2.2.5):
+    - BlocksKit/All (= 2.2.5)
+  - BlocksKit/All (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+    - BlocksKit/MessageUI
+    - BlocksKit/UIKit
+  - BlocksKit/Core (2.2.5)
+  - BlocksKit/DynamicDelegate (2.2.5)
+  - BlocksKit/MessageUI (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
+  - BlocksKit/UIKit (2.2.5):
+    - BlocksKit/Core
+    - BlocksKit/DynamicDelegate
   - MagicalRecord (2.2):
     - MagicalRecord/Core (= 2.2)
   - MagicalRecord/Core (2.2)
@@ -43,6 +58,7 @@ PODS:
 
 DEPENDENCIES:
   - AFNetworking-RACExtensions (from `https://github.com/knshiro/AFNetworking-RACExtensions.git`)
+  - BlocksKit (~> 2.2)
   - MagicalRecord
   - PonyDebugger (~> 0.4.0)
   - Realm
@@ -60,6 +76,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   AFNetworking: 0f54cb5d16ce38c1b76948faffb8d5fb705021c7
   AFNetworking-RACExtensions: 4f7633edc5618e771f1c034ec3eb6974fe9eb441
+  BlocksKit: 4439e7f30a9f90743462ca63545a15c1f4304cef
   MagicalRecord: 2b471584fc9e3137f3d0a56967917baa4979e224
   PonyDebugger: 4f43d7c2f67aa5e26ca00ce6983421608a6eca6d
   ReactiveCocoa: 31119068e3dde866bd257cf74e1f06b4023bf387

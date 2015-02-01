@@ -15,6 +15,7 @@
 		388249521A7D7DEC00D39B46 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 388249511A7D7DEC00D39B46 /* Images.xcassets */; };
 		388249551A7D7DEC00D39B46 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 388249531A7D7DEC00D39B46 /* LaunchScreen.xib */; };
 		388249611A7D7DEC00D39B46 /* JKDatabaseModelTestTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 388249601A7D7DEC00D39B46 /* JKDatabaseModelTestTests.m */; };
+		389E3D0F1A7DE81F00C8264D /* button_minus_red.png in Resources */ = {isa = PBXBuildFile; fileRef = 389E3D0E1A7DE81F00C8264D /* button_minus_red.png */; };
 		38BCDB661A7D916200D90A58 /* Airlines.m in Sources */ = {isa = PBXBuildFile; fileRef = 38BCDB651A7D916200D90A58 /* Airlines.m */; };
 		38BCDB6C1A7D962600D90A58 /* AirlineRL.m in Sources */ = {isa = PBXBuildFile; fileRef = 38BCDB6B1A7D962600D90A58 /* AirlineRL.m */; };
 		38BCDB6F1A7DAC5D00D90A58 /* Developer.m in Sources */ = {isa = PBXBuildFile; fileRef = 38BCDB6E1A7DAC5D00D90A58 /* Developer.m */; };
@@ -50,6 +51,7 @@
 		388249601A7D7DEC00D39B46 /* JKDatabaseModelTestTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JKDatabaseModelTestTests.m; sourceTree = "<group>"; };
 		3882496E1A7D821600D39B46 /* JKDatabaseModelTest-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "JKDatabaseModelTest-Prefix.pch"; sourceTree = "<group>"; };
 		388249751A7D85E200D39B46 /* JKDatabaseModelTest 2.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "JKDatabaseModelTest 2.xcdatamodel"; sourceTree = "<group>"; };
+		389E3D0E1A7DE81F00C8264D /* button_minus_red.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_minus_red.png; sourceTree = "<group>"; };
 		38BCDB641A7D916200D90A58 /* Airlines.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Airlines.h; sourceTree = "<group>"; };
 		38BCDB651A7D916200D90A58 /* Airlines.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Airlines.m; sourceTree = "<group>"; };
 		38BCDB6A1A7D962600D90A58 /* AirlineRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirlineRL.h; sourceTree = "<group>"; };
@@ -117,6 +119,7 @@
 				3882494E1A7D7DEC00D39B46 /* Main.storyboard */,
 				388249511A7D7DEC00D39B46 /* Images.xcassets */,
 				388249531A7D7DEC00D39B46 /* LaunchScreen.xib */,
+				389E3D0E1A7DE81F00C8264D /* button_minus_red.png */,
 				388249481A7D7DEC00D39B46 /* JKDatabaseModelTest.xcdatamodeld */,
 				388249411A7D7DEC00D39B46 /* Supporting Files */,
 				3882496E1A7D821600D39B46 /* JKDatabaseModelTest-Prefix.pch */,
@@ -296,6 +299,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				389E3D0F1A7DE81F00C8264D /* button_minus_red.png in Resources */,
 				388249501A7D7DEC00D39B46 /* Main.storyboard in Resources */,
 				388249551A7D7DEC00D39B46 /* LaunchScreen.xib in Resources */,
 				388249521A7D7DEC00D39B46 /* Images.xcassets in Resources */,
