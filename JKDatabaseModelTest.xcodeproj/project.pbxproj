@@ -104,7 +104,7 @@
 				3805EB3A1A7E6C5900F3D1E4 /* JKDatabaseCreateModel.h */,
 				3805EB3B1A7E6C5900F3D1E4 /* JKDatabaseCreateModel.m */,
 			);
-			name = "Create Operation";
+			path = "Create Operation";
 			sourceTree = "<group>";
 		};
 		3805EB361A7E6C2000F3D1E4 /* Speed Test Operation */ = {
@@ -113,7 +113,7 @@
 				3805EB371A7E6C4A00F3D1E4 /* JKDatabaseSpeedTest.h */,
 				3805EB381A7E6C4A00F3D1E4 /* JKDatabaseSpeedTest.m */,
 			);
-			name = "Speed Test Operation";
+			path = "Speed Test Operation";
 			sourceTree = "<group>";
 		};
 		388249351A7D7DEC00D39B46 = {
@@ -143,7 +143,6 @@
 				3805EB351A7E6C1500F3D1E4 /* Create Operation */,
 				38BCDB731A7DB2D600D90A58 /* Custom Cell */,
 				3882496F1A7D848000D39B46 /* Database Models */,
-				3882496A1A7D7FBA00D39B46 /* Constant */,
 				388249451A7D7DEC00D39B46 /* AppDelegate.h */,
 				388249461A7D7DEC00D39B46 /* AppDelegate.m */,
 				3882494B1A7D7DEC00D39B46 /* ViewController.h */,
@@ -165,7 +164,7 @@
 				388249421A7D7DEC00D39B46 /* Info.plist */,
 				388249431A7D7DEC00D39B46 /* main.m */,
 			);
-			name = "Supporting Files";
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		3882495D1A7D7DEC00D39B46 /* JKDatabaseModelTestTests */ = {
@@ -182,14 +181,7 @@
 			children = (
 				3882495F1A7D7DEC00D39B46 /* Info.plist */,
 			);
-			name = "Supporting Files";
-			sourceTree = "<group>";
-		};
-		3882496A1A7D7FBA00D39B46 /* Constant */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Constant;
+			path = "Supporting Files";
 			sourceTree = "<group>";
 		};
 		3882496F1A7D848000D39B46 /* Database Models */ = {
@@ -198,7 +190,7 @@
 				388249711A7D849300D39B46 /* Core Data Models */,
 				388249701A7D848C00D39B46 /* Realm Models */,
 			);
-			name = "Database Models";
+			path = "Database Models";
 			sourceTree = "<group>";
 		};
 		388249701A7D848C00D39B46 /* Realm Models */ = {
@@ -213,7 +205,7 @@
 				3805EB431A7E9B1F00F3D1E4 /* AirportRL.h */,
 				3805EB441A7E9B1F00F3D1E4 /* AirportRL.m */,
 			);
-			name = "Realm Models";
+			path = "Realm Models";
 			sourceTree = "<group>";
 		};
 		388249711A7D849300D39B46 /* Core Data Models */ = {
@@ -224,7 +216,7 @@
 				3805EB401A7E990900F3D1E4 /* Airport.h */,
 				3805EB411A7E990900F3D1E4 /* Airport.m */,
 			);
-			name = "Core Data Models";
+			path = "Core Data Models";
 			sourceTree = "<group>";
 		};
 		38BCDB731A7DB2D600D90A58 /* Custom Cell */ = {
@@ -233,7 +225,7 @@
 				38BCDB741A7DB32400D90A58 /* ApplicationDetailsTableViewCell.h */,
 				38BCDB751A7DB32400D90A58 /* ApplicationDetailsTableViewCell.m */,
 			);
-			name = "Custom Cell";
+			path = "Custom Cell";
 			sourceTree = "<group>";
 		};
 		553E6AA21955367EAB07DCDD /* Pods */ = {
@@ -527,7 +519,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = "JKDatabaseModelTest/JKDatabaseModelTest-Prefix.pch";
-				INFOPLIST_FILE = JKDatabaseModelTest/Info.plist;
+				INFOPLIST_FILE = "JKDatabaseModelTest/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -539,7 +531,7 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				GCC_PREFIX_HEADER = "JKDatabaseModelTest/JKDatabaseModelTest-Prefix.pch";
-				INFOPLIST_FILE = JKDatabaseModelTest/Info.plist;
+				INFOPLIST_FILE = "JKDatabaseModelTest/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -557,7 +549,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = JKDatabaseModelTestTests/Info.plist;
+				INFOPLIST_FILE = "JKDatabaseModelTestTests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JKDatabaseModelTest.app/JKDatabaseModelTest";
@@ -572,7 +564,7 @@
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = JKDatabaseModelTestTests/Info.plist;
+				INFOPLIST_FILE = "JKDatabaseModelTestTests/Supporting Files/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/JKDatabaseModelTest.app/JKDatabaseModelTest";
