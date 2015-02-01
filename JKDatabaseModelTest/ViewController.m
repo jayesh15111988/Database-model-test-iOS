@@ -8,14 +8,14 @@
 
 #import "ViewController.h"
 #import "AirlineRL.h"
-#import "Airlines.h"
+#import "AirportRL.h"
 #import "ApplicationDetailsTableViewCell.h"
 #import "ReleasedApp.h"
 #import "Developer.h"
+#import "JKDatabaseCreateModel.h"
+#import "JKDatabaseSpeedTest.h"
 #import <UIView+BlocksKit.h>
 #import <UIAlertView+BlocksKit.h>
-
-#define RECORDS_INCREMENT_PARAMETER 10
 
 @interface ViewController ()
 @property (nonatomic, strong) AFHTTPRequestOperationManager* manager;
@@ -58,15 +58,75 @@
     
     if([[AirlineRL allObjects] count] == 0) {
         [self.activityIndicator startAnimating];
-        [self fetchAndStoreDataInDatabase];
+        
+        RACSignal* returnedSignalAfterNetworkOperation = [self fetchAndStoreDataInDatabaseWithURLString:@"airlines/rest/v1/json/all" andParameters:@{@"appId" : APP_ID, @"appKey" : APP_KEY}];
+        
+        [returnedSignalAfterNetworkOperation subscribeNext:^(RACTuple* tuple) {
+            
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+            
+                NSDate* methodStart = [NSDate date];
+                //RACTupleUnpack(AFHTTPRequestOperation *operation, NSDictionary *response) = tuple;
+                NSDictionary *response = tuple[1];
+                DLog(@"Execution time to get Airlines data from network %f", [[NSDate date] timeIntervalSinceDate:methodStart]);
+                
+                //CREATE Operation time of execution
+                methodStart = [NSDate date];
+                NSInteger numberOfRecords = (long)[response[@"airlines"] count];
+                [JKDatabaseCreateModel storeAirlinesInCoreDatabaseWithCollection:response[@"airlines"]];
+                DLog(@"Time to store Airlines data by Core Data %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], numberOfRecords );
+                methodStart = [NSDate date];
+                [JKDatabaseCreateModel storeAirlinesInRealmDatabaseWithCollection:response[@"airlines"]];
+                DLog(@"Time to store Airlines data by Realm is %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], numberOfRecords);
+                
+                //We will performa testing and compare Realm with Core data viz. Magical Records in terms of performance for READ, DELETE and UPDATE operation
+                [JKDatabaseSpeedTest beginTestingOperationForAirlinesDatabase];
+                dispatch_async(dispatch_get_main_queue(), ^(void) {
+                    [self loadAppsCollectionTable];
+                });
+            });
+        }];
     }
     else {
-        //[self beginTestingOperation];
+        [self.activityIndicator startAnimating];
         [self loadAppsCollectionTable];
     }
     
+    [self loadAndMeasureExecutionTimeForAirportsCollection];
     self.isAddingApp = YES;
     [self updateInputInfoViewWithAddingAppFlag];
+}
+
+-(void)loadAndMeasureExecutionTimeForAirportsCollection {
+    
+    if([[AirportRL allObjects] count] == 0) {
+    
+        __block NSDate* methodStart = [NSDate date];
+        RACSignal* signalAfterAirportsData = [self fetchAndStoreDataInDatabaseWithURLString:@"airports/rest/v1/json/active" andParameters:@{@"appId" : APP_ID, @"appKey" : APP_KEY}];
+    
+        [signalAfterAirportsData subscribeNext:^(RACTuple* tuple) {
+
+            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+                
+                //RACTupleUnpack(AFHTTPRequestOperation *operation, NSDictionary *response) = tuple;
+                NSDictionary *response = tuple[1];
+                DLog(@"Execution time to get Airports data from network %f", [[NSDate date] timeIntervalSinceDate:methodStart]);
+                //CREATE Operation time of execution
+                methodStart = [NSDate date];
+                NSInteger numberOfRecords = (long)[response[@"airports"] count];
+        
+                [JKDatabaseCreateModel storeAirportsInCoreDatabaseWithCollection:response[@"airports"]];
+                DLog(@"Time to store Airports data in Core Data %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], numberOfRecords);
+                methodStart = [NSDate date];
+        
+                [JKDatabaseCreateModel storeAirportsInRealmDatabaseWithCollection:response[@"airports"]];
+                DLog(@"Time to store data Airports data by Realm is %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], numberOfRecords);
+        
+                [JKDatabaseSpeedTest beginTestingOperationForAirportsDatabase];
+                DLog(@"All Operations Completed Now");
+            });
+        }];
+    }
 }
 
 -(void)updateInputInfoViewWithAddingAppFlag {
@@ -81,7 +141,7 @@
     else {
         [self.addObjectButton setTitle: @"Add Developer" forState:UIControlStateNormal];
         self.platform.placeholder = @"Platform";
-        self.experience.placeholder = @"Experience";
+        self.experience.placeholder = @"Experience (Years)";
         self.extraInfo.placeholder = @"State";
     }
 }
@@ -117,7 +177,7 @@
     RACSignal *validFourthFieldSignal =
     [self.extraInfo.rac_textSignal
      map:^id(NSString *text) {
-         return @(text.length > 2);
+         return @(text.length > 0);
      }];
     
     RACSignal *addObjectActiveSignal =
@@ -136,52 +196,22 @@
         DLog(@"Add Object Button Pressed");
         if(self.isAddingApp) {
             //Add App object
-            [self addApplicaiton];
+            NSArray* inputApplicationParameters = @[self.name.text, self.platform.text, self.extraInfo.text, self.experience.text];
+            [[ReleasedApp addApplicationWithInputParameters:inputApplicationParameters] subscribeNext:^(NSString* returnMessage) {
+                [self showMessageWithBody:returnMessage];
+            }];
         }
         else {
             //Add Developer object
-            [self addDeveloper];
+            NSArray* inputDeveloperParameters = @[self.name.text, self.platform.text, self.extraInfo.text, self.experience.text];
+            [[Developer addDeveloperWithParameters:inputDeveloperParameters] subscribeNext:^(NSString* returnMessage) {
+                [self showMessageWithBody:returnMessage];
+            }];
         }
         [self loadAppsCollectionTable];
         return [RACSignal empty];
     }];
     
-}
-
--(void)addDeveloper {
-    
-    
-    [self.defaultRealm beginWriteTransaction];
-    Developer* developerObject = [[Developer alloc] init];
-    developerObject.name = self.name.text;
-    developerObject.platform = self.platform.text;
-    developerObject.state = self.extraInfo.text;
-    developerObject.experience = self.experience.text;
-    [self.defaultRealm addObject:developerObject];
-    [self.defaultRealm commitWriteTransaction];
-    
-    [self showMessageWithBody:@"Developer Successfully added to model"];
-}
-
--(void)addApplicaiton {
-    
-    RLMResults* developerWithCurrentName = [Developer objectsWhere:@"name = %@",self.name.text];
-    if([developerWithCurrentName count] > 0) {
-        
-        Developer* developerWithGivenName = [developerWithCurrentName firstObject];
-        
-        [self.defaultRealm beginWriteTransaction];
-        ReleasedApp* newAppToAdd = [[ReleasedApp alloc] init];
-        newAppToAdd.appName = self.name.text;
-        newAppToAdd.cost = self.extraInfo.text;
-        newAppToAdd.platform = self.platform.text;
-        [developerWithGivenName.releasedAppsCollection addObject:newAppToAdd];
-        [self.defaultRealm commitWriteTransaction];
-        [self showMessageWithBody:@"Application Successfully added to model"];
-    }
-    else {
-        [self showMessageWithBody:@"No developer with such name exists in database"];
-    }
 }
 
 -(void)showMessageWithBody:(NSString*)messageBody {
@@ -190,157 +220,16 @@
     [alertView show];
 }
 
--(void)beginTestingOperation {
-    
-    NSDate* methodStart = [NSDate date];
-    RLMRealm* realm = [RLMRealm defaultRealm];
-    
-    //READ Operation time of execution
-    NSArray* allObjectsFromCoreData = [Airlines MR_findAll];
-    NSInteger totalNumberOfRecordsFromCoreData = (long)[allObjectsFromCoreData count];
-    DLog(@"Execution time to get all Core Data objects %f for %ld objects", [[NSDate date] timeIntervalSinceDate:methodStart], totalNumberOfRecordsFromCoreData);
-    
-    methodStart = [NSDate date];
-    RLMResults* allObjectsFromRealm = [AirlineRL allObjects];
-    NSInteger totalNumberOfRecordsFromRealm = (long)[allObjectsFromRealm count];
-    
-    DLog(@"Execution time to get Realm objects is %f for %ld objects", [[NSDate date] timeIntervalSinceDate:methodStart], totalNumberOfRecordsFromRealm);
-    
-    //UPDATE Operation time of execution
-    methodStart = [NSDate date];
-    NSPredicate *pred = [NSPredicate predicateWithFormat:@"active = '1'"];
-    RLMResults *storedAirlines = [AirlineRL objectsWithPredicate:pred];
-    DLog(@"Execution time to get Realm data with custom predicate %f with %ld objects retrieved", [[NSDate date] timeIntervalSinceDate:methodStart], (long)[storedAirlines count]);
-    
-    methodStart = [NSDate date];
-
-    for (AirlineRL* individualAirlineObject in storedAirlines) {
-        if(individualAirlineObject.iata.length == 0) {
-            [realm beginWriteTransaction];
-            individualAirlineObject.iata = @"IATA";
-            [realm commitWriteTransaction];
-        }
-        if(individualAirlineObject.icao.length == 0) {
-            [realm beginWriteTransaction];
-            individualAirlineObject.icao = @"ICAO";
-            [realm commitWriteTransaction];
-        }
-    }
-    DLog(@"Execution time to update realm data is %f with %ld number of updated records", [[NSDate date] timeIntervalSinceDate:methodStart], (long) [storedAirlines count]);
-    
-    methodStart = [NSDate date];
-    NSArray* matchingAirlineObjects = [Airlines MR_findAllWithPredicate:[NSPredicate predicateWithFormat:@"active = 1"]];
-    DLog(@"Execution time to get Core Data with custom predicate %f and number of retrieved records is %ld", [[NSDate date] timeIntervalSinceDate:methodStart], (long)[matchingAirlineObjects count]);
-    
-    methodStart = [NSDate date];
-    for (Airlines* individualAirlineObject in matchingAirlineObjects) {
-        if(individualAirlineObject.iata.length == 0) {
-            individualAirlineObject.iata = @"IATA";
-        }
-        if(individualAirlineObject.icao.length == 0) {
-            individualAirlineObject.icao = @"ICAO";
-        }
-    }
-    //Following commented block is used to delete all objects from database. Commenting for now
-    DLog(@"Execution time to update Core data is %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], (long)[matchingAirlineObjects count]);
-    
-    //DELETE Operation time of execution
-    methodStart = [NSDate date];
-    [realm beginWriteTransaction];
-    [realm deleteObjects:[AirlineRL allObjects]];
-    [realm commitWriteTransaction];
-    DLog(@"Execution time to delete all records from Realm data model is %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], totalNumberOfRecordsFromRealm);
-    
-    methodStart = [NSDate date];
-    [Airlines MR_truncateAll];
-    DLog(@"Execution time to delete all records from Core data model is %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], totalNumberOfRecordsFromCoreData);
-    
-    //Saving core data context in persistent format - Just to be safe.
-    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
-}
-
--(void)fetchAndStoreDataInDatabase {
-    
-    __block NSDate *methodStart = [NSDate date];
-    
-    [[self.manager rac_GET:[NSString stringWithFormat:@"airlines/rest/v1/json/all"] parameters:@{@"appId" : APP_ID, @"appKey" : APP_KEY}] subscribeNext:^(RACTuple* tuple) {
-        
-        //Perform database storage on the background thread
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        
-        RACTupleUnpack(AFHTTPRequestOperation *operation, NSDictionary *response) = tuple;
-        DLog(@"Execution time to get network data %f", [[NSDate date] timeIntervalSinceDate:methodStart]);
-            
-        //CREATE Operation time of execution
-        methodStart = [NSDate date];
-        NSInteger numberOfRecords = (long)[response[@"airlines"] count];
-        [self storeDataInCoreDataWithDictionary:response[@"airlines"]];
-        DLog(@"Time to store data by Core Data %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], numberOfRecords * RECORDS_INCREMENT_PARAMETER);
-        methodStart = [NSDate date];
-        [self storeDataInRealmWithDictionary:response[@"airlines"]];
-        DLog(@"Time to store data by Realm is %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], numberOfRecords * RECORDS_INCREMENT_PARAMETER);
-            
-        //We will performa testing and compare Realm with Core data viz. Magical Records in terms of performance for READ, DELETE and UPDATE operation
-        [self beginTestingOperation];
-        
-        dispatch_async(dispatch_get_main_queue(), ^(void) {
-            [self loadAppsCollectionTable];
-            [self.activityIndicator stopAnimating];
-        });
-        });
-    }
-                                                                                                                    error:^(NSError *error) {
-                                                                                                                        AFHTTPRequestOperation *operation = [error.userInfo objectForKey:@"AFHTTPRequestOperation"];
-                                                                                                                        DLog(@"error: operation=%@", operation);
-                                                                                                                                             }
-                                                                                                                                         completed:^{
-                                                                                                                                             DLog(@"Network Operation Completed");
-                                                                                                                                         }];
-
+-(RACSignal*)fetchAndStoreDataInDatabaseWithURLString:(NSString*)urlExtension andParameters:(NSDictionary*)getParameters {
+    RACSignal* networkCompletionSignal = [self.manager rac_GET:urlExtension parameters:getParameters];
+    return networkCompletionSignal;
 }
 
 -(void)loadAppsCollectionTable {
     self.developersCollection = [Developer allObjects];
     self.noResultView.hidden = (self.developersCollection.count > 0);
     [self.tableView reloadData];
-}
-
-
--(void)storeDataInRealmWithDictionary:(NSArray*)responseData{
-    
-    NSMutableArray* realmModelsCollection = [NSMutableArray new];
-    RLMRealm* realm = [RLMRealm defaultRealm];
-    
-    for(NSInteger i = 0; i < RECORDS_INCREMENT_PARAMETER; i++) {
-        for(NSDictionary* individualObject in responseData) {
-            AirlineRL* airlineObject = [[AirlineRL alloc] init];
-            airlineObject.name = individualObject[@"name"];
-            airlineObject.iata = individualObject[@"iata"] ? : @"";
-            airlineObject.fs = individualObject[@"fs"];
-            airlineObject.icao = individualObject[@"icao"] ? : @"";
-            airlineObject.active = [individualObject[@"active"] boolValue] ? @"1" : @"0";
-            [realmModelsCollection addObject:airlineObject];
-        }
-    }
-    
-    [realm beginWriteTransaction];
-    [realm addObjects:realmModelsCollection];
-    [realm commitWriteTransaction];
-}
-
--(void)storeDataInCoreDataWithDictionary:(NSArray*) responseData {
-    
-    for(NSInteger i = 0; i < RECORDS_INCREMENT_PARAMETER; i++) {
-        for(NSDictionary* individualObject in responseData) {
-            Airlines* airlineObject = [Airlines MR_createEntity];
-            airlineObject.name = individualObject[@"name"];
-            airlineObject.iata = individualObject[@"iata"];
-            airlineObject.fs = individualObject[@"fs"];
-            airlineObject.icao = individualObject[@"icao"];
-            airlineObject.active = individualObject[@"active"];
-        }
-    }
-    [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
+    [self.activityIndicator stopAnimating];
 }
 
 #pragma tableView datasource and delegate methods
@@ -422,6 +311,5 @@
     inputView.layer.borderColor = [UIColor lightGrayColor].CGColor;
     inputView.layer.borderWidth = 1.0f;
 }
-
 
 @end

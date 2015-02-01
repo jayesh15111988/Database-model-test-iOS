@@ -10,4 +10,10 @@
 
 @interface JKDatabaseCreateModel : NSObject
 
++(void)storeAirlinesInCoreDatabaseWithCollection:(NSArray*)airlinesCollection;
++(void)storeAirlinesInRealmDatabaseWithCollection:(NSArray*)airlinesCollection;
+
++(void)storeAirportsInCoreDatabaseWithCollection:(NSArray*)airportsCollection;
++(void)storeAirportsInRealmDatabaseWithCollection:(NSArray*)airportsCollection;
+
 @end

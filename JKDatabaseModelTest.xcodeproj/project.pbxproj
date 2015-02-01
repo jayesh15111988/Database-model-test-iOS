@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3805EB391A7E6C4A00F3D1E4 /* JKDatabaseSpeedTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3805EB381A7E6C4A00F3D1E4 /* JKDatabaseSpeedTest.m */; };
 		3805EB3C1A7E6C5900F3D1E4 /* JKDatabaseCreateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3805EB3B1A7E6C5900F3D1E4 /* JKDatabaseCreateModel.m */; };
+		3805EB421A7E990900F3D1E4 /* Airport.m in Sources */ = {isa = PBXBuildFile; fileRef = 3805EB411A7E990900F3D1E4 /* Airport.m */; };
+		3805EB451A7E9B1F00F3D1E4 /* AirportRL.m in Sources */ = {isa = PBXBuildFile; fileRef = 3805EB441A7E9B1F00F3D1E4 /* AirportRL.m */; };
 		388249441A7D7DEC00D39B46 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 388249431A7D7DEC00D39B46 /* main.m */; };
 		388249471A7D7DEC00D39B46 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 388249461A7D7DEC00D39B46 /* AppDelegate.m */; };
 		3882494A1A7D7DEC00D39B46 /* JKDatabaseModelTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 388249481A7D7DEC00D39B46 /* JKDatabaseModelTest.xcdatamodeld */; };
@@ -41,6 +43,10 @@
 		3805EB381A7E6C4A00F3D1E4 /* JKDatabaseSpeedTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDatabaseSpeedTest.m; sourceTree = "<group>"; };
 		3805EB3A1A7E6C5900F3D1E4 /* JKDatabaseCreateModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKDatabaseCreateModel.h; sourceTree = "<group>"; };
 		3805EB3B1A7E6C5900F3D1E4 /* JKDatabaseCreateModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKDatabaseCreateModel.m; sourceTree = "<group>"; };
+		3805EB401A7E990900F3D1E4 /* Airport.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Airport.h; sourceTree = "<group>"; };
+		3805EB411A7E990900F3D1E4 /* Airport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Airport.m; sourceTree = "<group>"; };
+		3805EB431A7E9B1F00F3D1E4 /* AirportRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirportRL.h; sourceTree = "<group>"; };
+		3805EB441A7E9B1F00F3D1E4 /* AirportRL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirportRL.m; sourceTree = "<group>"; };
 		3882493E1A7D7DEC00D39B46 /* JKDatabaseModelTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JKDatabaseModelTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		388249421A7D7DEC00D39B46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		388249431A7D7DEC00D39B46 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -204,6 +210,8 @@
 				38BCDB711A7DAC8300D90A58 /* ReleasedApp.m */,
 				38BCDB6A1A7D962600D90A58 /* AirlineRL.h */,
 				38BCDB6B1A7D962600D90A58 /* AirlineRL.m */,
+				3805EB431A7E9B1F00F3D1E4 /* AirportRL.h */,
+				3805EB441A7E9B1F00F3D1E4 /* AirportRL.m */,
 			);
 			name = "Realm Models";
 			sourceTree = "<group>";
@@ -213,6 +221,8 @@
 			children = (
 				38BCDB641A7D916200D90A58 /* Airlines.h */,
 				38BCDB651A7D916200D90A58 /* Airlines.m */,
+				3805EB401A7E990900F3D1E4 /* Airport.h */,
+				3805EB411A7E990900F3D1E4 /* Airport.m */,
 			);
 			name = "Core Data Models";
 			sourceTree = "<group>";
@@ -387,7 +397,9 @@
 				3805EB3C1A7E6C5900F3D1E4 /* JKDatabaseCreateModel.m in Sources */,
 				38BCDB761A7DB32400D90A58 /* ApplicationDetailsTableViewCell.m in Sources */,
 				3882494D1A7D7DEC00D39B46 /* ViewController.m in Sources */,
+				3805EB451A7E9B1F00F3D1E4 /* AirportRL.m in Sources */,
 				3805EB391A7E6C4A00F3D1E4 /* JKDatabaseSpeedTest.m in Sources */,
+				3805EB421A7E990900F3D1E4 /* Airport.m in Sources */,
 				38BCDB721A7DAC8300D90A58 /* ReleasedApp.m in Sources */,
 				388249441A7D7DEC00D39B46 /* main.m in Sources */,
 			);

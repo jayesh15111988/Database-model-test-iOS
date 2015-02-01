@@ -17,5 +17,5 @@
 @property NSString* state;
 
 @property RLMArray<ReleasedApp> *releasedAppsCollection;
-
++(RACSignal*)addDeveloperWithParameters:(NSArray*)inputCollection;
 @end

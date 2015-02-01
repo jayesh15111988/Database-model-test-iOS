@@ -10,4 +10,8 @@
 
 @interface JKDatabaseSpeedTest : NSObject
 
++(void)beginTestingOperationForAirlinesDatabase;
++(void)beginTestingOperationForAirportsDatabase;
+
+
 @end
