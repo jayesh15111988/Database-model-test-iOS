@@ -30,7 +30,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *addObjectButton;
 
 @property (assign, nonatomic) BOOL isAddingApp;
-
+@property (weak, nonatomic) IBOutlet UIActivityIndicatorView *activityIndicator;
 @property (weak, nonatomic) IBOutlet UIView *addDeveloperView;
 
 @end
@@ -42,15 +42,18 @@
     [self setupSignals];
     self.tableView.tableFooterView = self.footerForTableView;
     
+    
     self.manager = [[AFHTTPRequestOperationManager alloc]
                initWithBaseURL:[NSURL URLWithString:[NSString stringWithFormat:@"%@%@",BASE_URL, API_EXTENSION]]];
     self.manager.requestSerializer = [AFJSONRequestSerializer serializer];
     self.manager.responseSerializer = [AFJSONResponseSerializer serializer];
     
     if([[AirlineRL allObjects] count] == 0) {
+        [self.activityIndicator startAnimating];
         [self fetchAndStoreDataInDatabase];
     }
     else {
+        //[self beginTestingOperation];
         [self loadAppsCollectionTable];
     }
     
@@ -221,7 +224,7 @@
     }
     
     //Following commented block is used to delete all objects from database. Commenting for now
-  /*  DLog(@"Execution time to update Core data is %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], (long)[matchingAirlineObjects count]);
+    DLog(@"Execution time to update Core data is %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], (long)[matchingAirlineObjects count]);
     methodStart = [NSDate date];
     
     [defaultRealm beginWriteTransaction];
@@ -235,27 +238,38 @@
     
     DLog(@"**Execution time to delete all records from Core data model is %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], (long)[allObjectsFromCoreData count]);
     methodStart = [NSDate date];
-    */
+    
     
     [[NSManagedObjectContext MR_defaultContext] MR_saveToPersistentStoreAndWait];
 }
-
 
 -(void)fetchAndStoreDataInDatabase {
     
     __block NSDate *methodStart = [NSDate date];
     
     [[self.manager rac_GET:[NSString stringWithFormat:@"airlines/rest/v1/json/all"] parameters:@{@"appId" : APP_ID, @"appKey" : APP_KEY}] subscribeNext:^(RACTuple* tuple) {
+        
+        //Perform database storage on the background thread
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        
         RACTupleUnpack(AFHTTPRequestOperation *operation, NSDictionary *response) = tuple;
         DLog(@"Execution time to get network data %f", [[NSDate date] timeIntervalSinceDate:methodStart]);
         methodStart = [NSDate date];
+        NSInteger numberOfRecords = (long)[response[@"airlines"] count];
         [self storeDataInCoreDataWithDictionary:response[@"airlines"]];
-        DLog(@"Time to store data by Core data %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], (long)[response[@"airlines"] count] * RECORDS_INCREMENT_PARAMETER);
+        DLog(@"Time to store data by Core data %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], numberOfRecords * RECORDS_INCREMENT_PARAMETER);
         methodStart = [NSDate date];
         [self storeDataInRealmWithDictionary:response[@"airlines"]];
-        DLog(@"Time to store data by Realm data model %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart],(long)[response[@"airlines"] count] * RECORDS_INCREMENT_PARAMETER);
+        DLog(@"Time to store data by Realm data model %f for %ld number of records", [[NSDate date] timeIntervalSinceDate:methodStart], numberOfRecords * RECORDS_INCREMENT_PARAMETER);
+            
+        //We will performa testing and compare Realm with Core data viz. Magical Records in terms of performance for add, delete and update operation
         [self beginTestingOperation];
-        [self loadAppsCollectionTable];
+        
+        dispatch_async(dispatch_get_main_queue(), ^(void) {
+            [self loadAppsCollectionTable];
+            [self.activityIndicator stopAnimating];
+        });
+        });
     }
                                                                                                                     error:^(NSError *error) {
                                                                                                                         AFHTTPRequestOperation *operation = [error.userInfo objectForKey:@"AFHTTPRequestOperation"];

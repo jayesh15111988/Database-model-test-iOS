@@ -102,11 +102,16 @@
                                 </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                             </view>
+                            <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" hidesWhenStopped="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="NBU-H9-6r2">
+                                <rect key="frame" x="150" y="20" width="37" height="37"/>
+                                <color key="color" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
+                            </activityIndicatorView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics"/>
                     <connections>
+                        <outlet property="activityIndicator" destination="NBU-H9-6r2" id="sai-jt-jfC"/>
                         <outlet property="addDeveloperView" destination="of8-oH-b3k" id="jC1-ew-s0g"/>
                         <outlet property="addObjectButton" destination="abd-bu-1ms" id="viu-aB-J0i"/>
                         <outlet property="experience" destination="CbG-uw-xF1" id="8s9-En-NXq"/>
