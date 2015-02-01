@@ -132,10 +132,16 @@
 -(void)updateInputInfoViewWithAddingAppFlag {
     [self.addObjectButton setTitle:self.isAddingApp ? @"Add App" : @"Add Developer" forState:UIControlStateNormal];
     
+    //Reset All fields when switching between one mode to other
+    self.name.text = @"";
+    self.platform.text = @"";
+    self.experience.text = @"";
+    self.extraInfo.text = @"";
+    
     if(self.isAddingApp) {
         self.platform.placeholder = @"App Name";
-        self.experience.placeholder = @"Platform";
-        self.extraInfo.placeholder = @"Cost";
+        self.experience.placeholder = @"Cost";
+        self.extraInfo.placeholder = @"Platform";
         [self.addObjectButton setTitle:@"Add App" forState:UIControlStateNormal];
     }
     else {
@@ -171,13 +177,13 @@
     RACSignal *validThirdFieldSignal =
     [self.experience.rac_textSignal
      map:^id(NSString *text) {
-         return @(text.length > 2);
+         return @(text.length > 0);
      }];
     
     RACSignal *validFourthFieldSignal =
     [self.extraInfo.rac_textSignal
      map:^id(NSString *text) {
-         return @(text.length > 0);
+         return @(text.length > 2);
      }];
     
     RACSignal *addObjectActiveSignal =
@@ -196,7 +202,7 @@
         DLog(@"Add Object Button Pressed");
         if(self.isAddingApp) {
             //Add App object
-            NSArray* inputApplicationParameters = @[self.name.text, self.platform.text, self.extraInfo.text, self.experience.text];
+            NSArray* inputApplicationParameters = @[self.name.text, self.platform.text, self.experience.text, self.extraInfo.text];
             [[ReleasedApp addApplicationWithInputParameters:inputApplicationParameters] subscribeNext:^(NSString* returnMessage) {
                 [self showMessageWithBody:returnMessage];
             }];
