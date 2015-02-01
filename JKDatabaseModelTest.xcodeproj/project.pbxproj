@@ -11,6 +11,7 @@
 		3805EB3C1A7E6C5900F3D1E4 /* JKDatabaseCreateModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 3805EB3B1A7E6C5900F3D1E4 /* JKDatabaseCreateModel.m */; };
 		3805EB421A7E990900F3D1E4 /* Airport.m in Sources */ = {isa = PBXBuildFile; fileRef = 3805EB411A7E990900F3D1E4 /* Airport.m */; };
 		3805EB451A7E9B1F00F3D1E4 /* AirportRL.m in Sources */ = {isa = PBXBuildFile; fileRef = 3805EB441A7E9B1F00F3D1E4 /* AirportRL.m */; };
+		3805EB491A7EDB3100F3D1E4 /* JKRealmObjectOperations.m in Sources */ = {isa = PBXBuildFile; fileRef = 3805EB481A7EDB3100F3D1E4 /* JKRealmObjectOperations.m */; };
 		388249441A7D7DEC00D39B46 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 388249431A7D7DEC00D39B46 /* main.m */; };
 		388249471A7D7DEC00D39B46 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 388249461A7D7DEC00D39B46 /* AppDelegate.m */; };
 		3882494A1A7D7DEC00D39B46 /* JKDatabaseModelTest.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 388249481A7D7DEC00D39B46 /* JKDatabaseModelTest.xcdatamodeld */; };
@@ -47,6 +48,8 @@
 		3805EB411A7E990900F3D1E4 /* Airport.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Airport.m; sourceTree = "<group>"; };
 		3805EB431A7E9B1F00F3D1E4 /* AirportRL.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AirportRL.h; sourceTree = "<group>"; };
 		3805EB441A7E9B1F00F3D1E4 /* AirportRL.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AirportRL.m; sourceTree = "<group>"; };
+		3805EB471A7EDB3100F3D1E4 /* JKRealmObjectOperations.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JKRealmObjectOperations.h; sourceTree = "<group>"; };
+		3805EB481A7EDB3100F3D1E4 /* JKRealmObjectOperations.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JKRealmObjectOperations.m; sourceTree = "<group>"; };
 		3882493E1A7D7DEC00D39B46 /* JKDatabaseModelTest.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JKDatabaseModelTest.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		388249421A7D7DEC00D39B46 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		388249431A7D7DEC00D39B46 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -114,6 +117,15 @@
 				3805EB381A7E6C4A00F3D1E4 /* JKDatabaseSpeedTest.m */,
 			);
 			path = "Speed Test Operation";
+			sourceTree = "<group>";
+		};
+		3805EB461A7EDB1F00F3D1E4 /* Utility */ = {
+			isa = PBXGroup;
+			children = (
+				3805EB471A7EDB3100F3D1E4 /* JKRealmObjectOperations.h */,
+				3805EB481A7EDB3100F3D1E4 /* JKRealmObjectOperations.m */,
+			);
+			name = Utility;
 			sourceTree = "<group>";
 		};
 		388249351A7D7DEC00D39B46 = {
@@ -187,6 +199,7 @@
 		3882496F1A7D848000D39B46 /* Database Models */ = {
 			isa = PBXGroup;
 			children = (
+				3805EB461A7EDB1F00F3D1E4 /* Utility */,
 				388249711A7D849300D39B46 /* Core Data Models */,
 				388249701A7D848C00D39B46 /* Realm Models */,
 			);
@@ -384,6 +397,7 @@
 				38BCDB6C1A7D962600D90A58 /* AirlineRL.m in Sources */,
 				388249471A7D7DEC00D39B46 /* AppDelegate.m in Sources */,
 				38BCDB661A7D916200D90A58 /* Airlines.m in Sources */,
+				3805EB491A7EDB3100F3D1E4 /* JKRealmObjectOperations.m in Sources */,
 				3882494A1A7D7DEC00D39B46 /* JKDatabaseModelTest.xcdatamodeld in Sources */,
 				38BCDB6F1A7DAC5D00D90A58 /* Developer.m in Sources */,
 				3805EB3C1A7E6C5900F3D1E4 /* JKDatabaseCreateModel.m in Sources */,

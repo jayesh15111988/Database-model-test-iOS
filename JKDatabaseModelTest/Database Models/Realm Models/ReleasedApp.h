@@ -13,7 +13,6 @@
 @property NSString* appName;
 @property NSString* cost;
 @property NSString* platform;
-+(RACSignal*)addApplicationWithInputParameters:(NSArray*)inputParameters;
 @end
 
 RLM_ARRAY_TYPE(ReleasedApp)

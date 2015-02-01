@@ -12,6 +12,7 @@
 #import "ApplicationDetailsTableViewCell.h"
 #import "ReleasedApp.h"
 #import "Developer.h"
+#import "JKRealmObjectOperations.h"
 #import "JKDatabaseCreateModel.h"
 #import "JKDatabaseSpeedTest.h"
 #import <UIView+BlocksKit.h>
@@ -203,14 +204,14 @@
         if(self.isAddingApp) {
             //Add App object
             NSArray* inputApplicationParameters = @[self.name.text, self.platform.text, self.experience.text, self.extraInfo.text];
-            [[ReleasedApp addApplicationWithInputParameters:inputApplicationParameters] subscribeNext:^(NSString* returnMessage) {
+            [[JKRealmObjectOperations addApplicationWithInputParameters:inputApplicationParameters] subscribeNext:^(NSString* returnMessage) {
                 [self showMessageWithBody:returnMessage];
             }];
         }
         else {
             //Add Developer object
             NSArray* inputDeveloperParameters = @[self.name.text, self.platform.text, self.extraInfo.text, self.experience.text];
-            [[Developer addDeveloperWithParameters:inputDeveloperParameters] subscribeNext:^(NSString* returnMessage) {
+            [[JKRealmObjectOperations addDeveloperWithParameters:inputDeveloperParameters] subscribeNext:^(NSString* returnMessage) {
                 [self showMessageWithBody:returnMessage];
             }];
         }
