@@ -7,23 +7,23 @@ Below are some of statistics of the comparison between Realm and Core data model
 ___
 - Performance details of Airlines Records retrieved using FlightStats API (Total 1920 Records) - Network latency was 0.000045 seconds. P.S. All the following figures are in Seconds unit.
 
-| Operation | Core Data (Magical record)  | Realm  | 
-|:---|:---:|---:|
-| Read  |  0.001024  | 0.000025  |
-| Create  | 0.007469  | 0.017996  |
-| Delete  | 0.001422 | 0.000767 |
-| Read With Predicate | 0.001982 | 0.000199 |   
+| Operation | Core Data (Magical record)  | Realm  | Ratio(Core Data/Realm) | Winner
+|:---|:---:|---:|---:|---:|
+| Read  |  0.001024  | 0.000025  | 40.96 | Realm
+| Create  | 0.007469  | 0.017996  | 0.415 | Core Data
+| Delete  | 0.001422 | 0.000767 | 1.85 | Realm
+| Read With Predicate | 0.001982 | 0.000199 | 10 | Realm  
 
 ___
 
  - Performance details of Airport Records retrieved using FlightStats API (Total 16126 Records) - Network latency was 17.127410 seconds. 
 
-| Operation | Core Data (Magical record)  | Realm  | 
-|:---|:---:|---:|
-| Read  |  0.005375  | 0.000042  |
-| Create  | 0.092580  | 0.230939  |
-| Delete  | 0.001422 | 0.000767 |
-| Read With Predicate | 0.011655 | 0.001864 |   
+| Operation | Core Data (Magical record)  | Realm  | Ratio(Core Data/Realm) | Winner
+|:---|:---:|---:| ---:| ---:|
+| Read  |  0.005375  | 0.000042  | 128 | Realm
+| Create  | 0.092580  | 0.230939  | 0.4 | Core Data
+| Delete  | 0.001422 | 0.000767 | 1.85 | Realm
+| Read With Predicate | 0.011655 | 0.001864 | 6.25 | Realm  
 
 It seems for above comparison that, except for creating new database objects, where Core data performs better than Realm data model it seems that in all the remaining categories Realm prevails Core Data in terms of execution time.
 
